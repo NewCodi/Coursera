@@ -6,7 +6,6 @@
 !*.*
 
 #ignore custom folder
-.vscode/
 *.dSYM/
 
 #ignore custom file

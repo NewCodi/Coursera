@@ -11,43 +11,52 @@
 *   inline any short function
 
 */
+#include <iostream>
+#include <vector>
 
-#include <stdio.h>
+using namespace std;
 
-#define N 40
+// use the same name as original question
+const int N = 40;
 
-void sum(int*p, int n, int d[])
-
+// a template type of Ts, which is a summable type
+// that should support the operator +=
+template <class Ts>
+// inline for short function summation
+inline void sum(Ts &sum, vector<Ts> &data)
 {
+    //C++11
+    for(Ts ele : data)
+    {
+        //since Ts is a summable type, it should support the += operator
+        sum += ele;
+    }
 
-  int i;
+    // syntax error
+    // any other type doesn't support += should overloading the operator +=, TODO - not yet learn how to do overload
 
-  *p = 0;
-
-  for(i = 0; i < n; ++i)
-
-    *p = *p + d[i];
-
+    // runtime error
+    // or the type does support +=, but the way of summation is not expected
 }
 
 int main()
-
 {
 
-   int i;
+    int i;
 
-   int accum = 0;
+    int accum = 0;
 
-   int data[N];
+    // change array to vector structure with int type
+    vector<int> data;
 
-   for(i = 0; i < N; ++i)
+    // add the data into the vector as original
+    for (i = 0; i < N; ++i)
+        data.push_back(i);
 
-      data[i] = i;
+    // call the templated inline functions
+    sum(accum, data);
 
-    sum(&accum, N, data);
-
-    printf("sum is %d\n", accum); 
+    cout << "sum is " << accum << endl;
 
     return 0;
-
 }
